@@ -4,11 +4,27 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    public AnimationCurve heigthVSfov;
+    public AnimationCurve heigthVSz;
+    public AnimationCurve heigthVSy;
+    public Camera still_cam; 
     public Transform target;
-    public  float smooth = 5;
+    public Transform bag;
+    public float smooth = 5;
 
 
-    private void Update()
+    Camera cam;
+
+
+    int child_count = -1;
+    Bounds bounds;
+
+    private void Start()
+    {
+        cam = GetComponent<Camera>();
+    }
+
+    private void LateUpdate()
     {
         Vector3 line1_point = new Vector3(transform.position.x, 0, transform.position.z) - Vector3.left * 100 / 2;
         Vector3 line1_dir = Vector3.left * 100;
@@ -24,5 +40,39 @@ public class CameraController : MonoBehaviour
         Vector3 new_pos = new Vector3(intersection.x, transform.position.y, intersection.z);
 
         transform.position = Vector3.Lerp(transform.position, new_pos, Time.deltaTime * smooth);
+
+        if (bag.childCount % 10 == 0 && child_count!= bag.childCount)
+        {
+            child_count = bag.childCount;
+            bounds = CalculateBounds();
+        }
+
+        float fov = heigthVSfov.Evaluate(bounds.size.y);
+        float y = heigthVSy.Evaluate(bounds.size.y);
+        float z = heigthVSz.Evaluate(bounds.size.y);
+
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView ,fov,Time.deltaTime*5);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(transform.localPosition.x, y, z),Time.deltaTime*5);
+
+
+
+        //still_cam.transform.localPosition = transform.localPosition;
+        //still_cam.fieldOfView = cam.fieldOfView;
+
+
+    }
+
+    public Bounds CalculateBounds()
+    {
+        Bounds b = bag.parent.GetComponent<MeshRenderer>().bounds;
+
+        foreach (Transform item in bag)
+        {
+            b.Encapsulate(item.GetComponent<MeshRenderer>().bounds);
+        }
+
+        return b;
+
+
     }
 }
