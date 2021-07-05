@@ -18,11 +18,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.forward * Time.deltaTime * speed;
+        //transform.position += Vector3.forward * Time.deltaTime * speed;
     }
+
+
     private void OnCollisionEnter(Collision collision)
     {
-
         if (collision.transform.TryGetComponent(out Slab slab))
         {
             if (slab.inBag)
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour
                         OnAddSlab(buffer.Dequeue());
                     }
                 });
-
         }
     }
 
