@@ -16,7 +16,7 @@ public class Slab : MonoBehaviour
         rb.angularVelocity = new Vector3(Random.Range(0,1000), Random.Range(0, 1000), Random.Range(0, 1000));
 
         Sequence sequence = DOTween.Sequence();
-        sequence.SetDelay(1);
+        sequence.SetDelay(Random.Range(0.5f, 1));
         sequence.Append(transform.DOScale(transform.localScale*1.3f, 0.1f));
         sequence.Append(transform.DOScale(Vector3.zero, 0.4f).SetEase(Ease.InCirc));
 
