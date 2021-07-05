@@ -9,7 +9,6 @@ public class Collector : MonoBehaviour
     public List<Slab> slabs = new List<Slab>();
     public Queue<Slab> buffer = new Queue<Slab>();
     public bool lifting;
-    public float speed;
 
     private void Start()
     {
@@ -18,7 +17,7 @@ public class Collector : MonoBehaviour
 
     private void Update()
     {
-        //transform.position += Vector3.forward * Time.deltaTime * speed;
+
     }
 
 
@@ -31,7 +30,6 @@ public class Collector : MonoBehaviour
                 return;
             }
             slab.inBag = true;
-            print(collision.transform.name);
             collision.transform.parent = folk.parent;
             collision.transform.rotation = folk.parent.rotation;
             collision.transform.DOLocalMove(Vector3.zero + folk.parent.up * (collision.transform.localScale.y / 2 + 0.2271941f / 2), 0.1f)
