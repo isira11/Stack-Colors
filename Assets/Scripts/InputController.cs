@@ -5,7 +5,6 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     public Camera cam;
-    public Camera cam1;
     public float x_boundry_min = -7;
     public float x_boundry_max = 7;
     public float forward_speed = 2;
@@ -15,9 +14,11 @@ public class InputController : MonoBehaviour
     Vector3 intersect_0;
     Vector3 pos_0;
     Vector3 next_pos;
-    Vector3 mouse_pos_0;
+    Vector2 mouse_pos_0;
 
     Bounds bounds;
+
+    bool moving;
 
     private void Start()
     {
@@ -36,16 +37,16 @@ public class InputController : MonoBehaviour
                 case TouchPhase.Began:
                     intersect_0 = GetIntersectPoint();
                     pos_0 = transform.position;
-                    mouse_pos_0 = Input.mousePosition;
+                    mouse_pos_0 = Input.GetTouch(0).position;
                     break;
                 case TouchPhase.Moved:
-                    if (mouse_pos_0 - Input.mousePosition != Vector3.zero)
+                    if (mouse_pos_0 - Input.GetTouch(0).position != Vector2.zero)
                     {
 
                         Vector3 delta = GetIntersectPoint() - intersect_0;
                         Vector3 new_pos = pos_0 + delta;
 
-                        bounds = CalculateBounds();
+                        bounds = fork.GetComponent<MeshRenderer>().bounds;
 
                         float size1 = Mathf.Abs(bounds.min.x - transform.position.x);
                         float size2 = Mathf.Abs(bounds.max.x - transform.position.x);
@@ -67,6 +68,7 @@ public class InputController : MonoBehaviour
                     mouse_pos_0 = Input.mousePosition;
                     break;
                 case TouchPhase.Stationary:
+                    print("stationary");
                     break;
                 case TouchPhase.Ended:
                     break;
@@ -86,7 +88,7 @@ public class InputController : MonoBehaviour
     public Vector3 GetIntersectPoint()
     {
 
-        float y_screen_point_offset = cam.WorldToScreenPoint(transform.position).y;
+        float y_screen_point_offset = cam.WorldToScreenPoint(transform.position).y*1.5f;
         Ray cam_ray = cam.ScreenPointToRay(new Vector2(Input.mousePosition.x, y_screen_point_offset));
 
         Vector3 line1_point = cam_ray.origin;
@@ -101,13 +103,6 @@ public class InputController : MonoBehaviour
         Math3d.LineLineIntersection(out Vector3 intersection, line1_point, line1_dir, line2_point, line2_dir);
 
         return intersection;
-
-    }
-
-    public Bounds CalculateBounds()
-    {
-
-        return fork.GetComponent<MeshRenderer>().bounds;
 
     }
 
