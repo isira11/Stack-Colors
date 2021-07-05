@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Player : MonoBehaviour
+public class Collector : MonoBehaviour
 {
     public Transform folk;
     public List<Slab> slabs = new List<Slab>();
