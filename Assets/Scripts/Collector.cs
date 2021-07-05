@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Collector : MonoBehaviour
 {
     public Transform folk;
-    public List<Slab> slabs = new List<Slab>();
+    public LinkedList<Slab> slabs = new LinkedList<Slab>();
     public Queue<Slab> buffer = new Queue<Slab>();
     public bool lifting;
 
@@ -44,6 +44,23 @@ public class Collector : MonoBehaviour
                     }
                 });
         }
+
+        if(collision.transform.tag == "enemy")
+        {
+            if (collision.contacts[0].thisCollider.transform.TryGetComponent(out Slab collider_slab))
+            {
+                LinkedListNode<Slab> linkedListNode = slabs.Find(collider_slab);
+
+                while (linkedListNode != null)
+                {
+                    Slab _slab = linkedListNode.Value;
+    
+                    linkedListNode = linkedListNode.Next;
+                    slabs.Remove(_slab);
+                    _slab.StartDestroy();
+                }
+            }
+        }
     }
 
 
@@ -61,17 +78,17 @@ public class Collector : MonoBehaviour
                 {
                     lifting = false;
                     slab.transform.parent = folk;
-                    slabs.Add(slab);
-
+                    slabs.AddFirst(slab);
+                    print(slabs.Count);
                     if (buffer.Count > 0)
                     {
-                        OnAddSlab(buffer.Dequeue());
+                        Slab _ = buffer.Dequeue();
+                        OnAddSlab(_);
+
+                   
                     }
 
                 });
-
-
-
 
     }
 }
