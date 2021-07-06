@@ -68,7 +68,7 @@ public class InputController : MonoBehaviour
                     mouse_pos_0 = Input.mousePosition;
                     break;
                 case TouchPhase.Stationary:
-                    print("stationary");
+
                     break;
                 case TouchPhase.Ended:
                     break;

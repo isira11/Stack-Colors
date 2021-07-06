@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - enemy
+  - color_wall
   layers:
   - Default
   - TransparentFX
