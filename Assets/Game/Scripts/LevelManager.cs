@@ -15,11 +15,6 @@ public class LevelManager : MonoBehaviour
 
     Bounds bounds;
 
-    private void Start()
-    {
-        bounds = start_block.transform.GetChild(0).GetComponent<MeshRenderer>().bounds;
-        CreateLevel();
-    }
 
     public void CreateLevel()
     {
@@ -52,5 +47,11 @@ public class LevelManager : MonoBehaviour
 
 
 
+    }
+
+    public void OnMenu()
+    {
+        bounds = start_block.transform.GetChild(0).GetComponent<MeshRenderer>().bounds;
+        CreateLevel();
     }
 }
