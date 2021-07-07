@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PointSlab : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    MeshRenderer mr;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        mr = GetComponent<MeshRenderer>();
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.TryGetComponent(out Slab slab))
+        {
+            mr.material.color = new Color32(0, 0, 0, 0);
+        }
+
     }
 }

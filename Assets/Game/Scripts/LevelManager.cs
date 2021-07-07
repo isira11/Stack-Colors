@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
 
         PlaceObject(Instantiate(finish_prefab));
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 100; i++)
         {
             GameObject _ = Instantiate(point_prefab);
             _.transform.Find("ground").GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f),Random.Range(0f, 1f),Random.Range(0f, 1f));
