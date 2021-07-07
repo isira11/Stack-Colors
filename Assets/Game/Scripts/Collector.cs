@@ -5,6 +5,7 @@ using DG.Tweening;
 using Doozy.Engine;
 public class Collector : MonoBehaviour
 {
+    public InputController inputController;
     public MeshRenderer fork_model;
     public Transform folk;
     public LinkedList<Slab> slabs = new LinkedList<Slab>();
@@ -81,6 +82,19 @@ public class Collector : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "finish_line_0")
+        {
+            KickAll();
+        }
+
+        if (other.tag == "finish_line_1")
+        {
+
+        }
+    }
+
     public void RemoveSlabFromBottom()
     {
         if (slabs.Count>0)
@@ -120,6 +134,22 @@ public class Collector : MonoBehaviour
 
                 });
 
+    }
+
+
+
+
+    public void KickAll()
+    {
+        inputController.OnGameOver();
+        foreach (Slab item in slabs)
+        {
+
+            item.transform.parent = null;
+            Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
+            rb.AddForce(Vector3.forward * 1000);
+            Destroy(item);
+        }    
     }
 
 }

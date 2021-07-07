@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemy
   - color_wall
+  - finish_line_0
   layers:
   - Default
   - TransparentFX

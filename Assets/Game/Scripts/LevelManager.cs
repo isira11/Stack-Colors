@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
         generated_folder.transform.parent = transform;
 
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 1; i++)
         {
             GameObject gameObject = Instantiate(block_prefab);
             gameObject.transform.parent = generated_folder.transform;
