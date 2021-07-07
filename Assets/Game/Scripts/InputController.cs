@@ -115,5 +115,10 @@ public class InputController : MonoBehaviour
         play = true;
     }
 
+    public void OnGameOver()
+    {
+        play = false;
+    }
+
 
 }

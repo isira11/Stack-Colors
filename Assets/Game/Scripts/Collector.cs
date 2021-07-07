@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using Doozy.Engine;
 public class Collector : MonoBehaviour
 {
     public MeshRenderer fork_model;
@@ -38,7 +38,6 @@ public class Collector : MonoBehaviour
             {
                 Destroy(slab);
                 RemoveSlabFromBottom();
-                print("Not SAME");
                 return;
             }
 
@@ -89,6 +88,10 @@ public class Collector : MonoBehaviour
             slabs.Last.Value.StartDestroy2();
             slabs.RemoveLast();
 
+        }
+        else
+        {
+            GameEventMessage.SendEvent("game_over");
         }
     }
 
