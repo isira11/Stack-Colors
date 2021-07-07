@@ -5,6 +5,7 @@ using DG.Tweening;
 using Doozy.Engine;
 public class Collector : MonoBehaviour
 {
+    public game_variables_so game_variables_so;
     public InputController inputController;
     public MeshRenderer fork_model;
     public Transform folk;
@@ -82,16 +83,17 @@ public class Collector : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.tag == "finish_line_0")
         {
-            KickAll();
+            GameEventMessage.SendEvent("finish_line_0");
         }
 
         if (other.tag == "finish_line_1")
         {
-
+            GameEventMessage.SendEvent("finish_line_1");
+            KickAll();
         }
     }
 
@@ -141,13 +143,12 @@ public class Collector : MonoBehaviour
 
     public void KickAll()
     {
-        inputController.OnGameOver();
         foreach (Slab item in slabs)
         {
 
             item.transform.parent = null;
             Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
-            rb.AddForce(Vector3.forward * 1000);
+            rb.AddForce(Vector3.forward * (200+1000 * game_variables_so.kick_force));
             Destroy(item);
         }    
     }

@@ -13,12 +13,12 @@ public class LevelManager : MonoBehaviour
 
     public GameObject generated_folder;
 
+
     Bounds bounds;
 
 
     public void CreateLevel()
     {
-
         if (player)
         {
             Destroy(player);
@@ -44,9 +44,6 @@ public class LevelManager : MonoBehaviour
             gameObject.transform.position += Vector3.forward * gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().bounds.size.z/2;
             bounds = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().bounds;
         }
-
-
-
     }
 
     public void OnMenu()
