@@ -16,8 +16,9 @@ public class LevelManager : MonoBehaviour
 
     public GameObject generated_folder;
 
-
     Bounds bounds;
+
+
 
 
     public void CreateLevel()
@@ -48,16 +49,21 @@ public class LevelManager : MonoBehaviour
         for (int i = 0; i < 100; i++)
         {
             GameObject _ = Instantiate(point_prefab);
-            _.transform.Find("ground").GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f),Random.Range(0f, 1f),Random.Range(0f, 1f));
-            _.transform.Find("text").GetComponent<TextMeshPro>().SetText(""+(i+1));
+            _.transform.Find("ground").GetComponent<PointSlab>().point = i + 1;
+            _.transform.Find("ground").GetComponent<PointSlab>().OnPoint = (int i)=>{ OnPointScored(i); };
+
+            _.transform.Find("ground").GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+            _.transform.Find("text").GetComponent<TextMeshPro>().SetText("" + (i + 1));
+
             PlaceObject(_);
         }
 
         PlaceObject(Instantiate(bonus_prefab));
+    }
 
-
-
-
+    public void OnPointScored(int point)
+    {
+        print(point);
     }
 
     public void PlaceObject(GameObject obj)

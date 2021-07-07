@@ -89,7 +89,6 @@ public class InputController : MonoBehaviour
         {
             next_pos = Vector3.zero;
             forward_speed = 5.0f + 20 * game_variables_so.kick_force;
-            print(forward_speed);
         }
 
         float x_lerp = Mathf.Lerp(transform.localPosition.x, next_pos.x, Time.deltaTime * smooth);
