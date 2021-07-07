@@ -18,7 +18,7 @@ public class InputController : MonoBehaviour
 
     Bounds bounds;
 
-    bool moving;
+    bool play;
 
     private void Start()
     {
@@ -28,6 +28,10 @@ public class InputController : MonoBehaviour
 
     void Update()
     {
+        if (!play)
+        {
+            return;
+        }
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -104,6 +108,11 @@ public class InputController : MonoBehaviour
 
         return intersection;
 
+    }
+
+    public void Play()
+    {
+        play = true;
     }
 
 
