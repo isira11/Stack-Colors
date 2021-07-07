@@ -304,7 +304,7 @@ MonoBehaviour:
   m_version: 1
   m_description: 
   m_id: 54a8c068-1006-443a-9b8b-e3ccf2d77541
-  m_lastModified: 132700738974543910
+  m_lastModified: 132701487694266940
 --- !u!114 &473179547396426124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -439,25 +439,25 @@ MonoBehaviour:
   m_onEnterShowViews:
   - Category: General
     InstantAction: 0
-    Name: Unnamed
+    Name: coins
   - Category: General
     InstantAction: 0
     Name: road_map
   - Category: General
     InstantAction: 0
-    Name: coins
+    Name: Unnamed
   m_onEnterHideViews: []
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: General
     InstantAction: 0
-    Name: Unnamed
-  - Category: General
-    InstantAction: 0
     Name: coins
   - Category: General
     InstantAction: 0
     Name: road_map
+  - Category: General
+    InstantAction: 0
+    Name: Unnamed
 --- !u!114 &752442618261119487
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -482,6 +482,13 @@ MonoBehaviour:
       m_inputSocketId: afce9ed2-4941-4928-918b-61a6e3834ec8
       m_outputNodeId: bf19d969-2570-4a07-b19b-c3937d71c45a
       m_outputSocketId: 8aadcb18-157a-4938-becf-6ac2f86159e1
+    - m_inputConnectionPoint: {x: 202, y: 4}
+      m_outputConnectionPoint: {x: -2, y: 4}
+      m_id: d69547f5-f357-4183-a44a-cc0780fa65e2
+      m_inputNodeId: b5932d7e-1a1c-4b23-960e-7bf4f5cf180f
+      m_inputSocketId: afce9ed2-4941-4928-918b-61a6e3834ec8
+      m_outputNodeId: 58faab4e-356d-4f3e-a79d-96b9d6243f6d
+      m_outputSocketId: 85a29104-d9eb-4228-9442-9e0d63c97d59
     m_connectionPoints:
     - {x: -2, y: 4}
     - {x: 202, y: 4}
@@ -589,7 +596,14 @@ MonoBehaviour:
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_outputSockets:
   - m_connectionMode: 0
-    m_connections: []
+    m_connections:
+    - m_inputConnectionPoint: {x: 202, y: 4}
+      m_outputConnectionPoint: {x: -2, y: 4}
+      m_id: d69547f5-f357-4183-a44a-cc0780fa65e2
+      m_inputNodeId: b5932d7e-1a1c-4b23-960e-7bf4f5cf180f
+      m_inputSocketId: afce9ed2-4941-4928-918b-61a6e3834ec8
+      m_outputNodeId: 58faab4e-356d-4f3e-a79d-96b9d6243f6d
+      m_outputSocketId: 85a29104-d9eb-4228-9442-9e0d63c97d59
     m_connectionPoints:
     - {x: -2, y: 4}
     - {x: 202, y: 4}
@@ -617,7 +631,7 @@ MonoBehaviour:
   m_useUpdate: 0
   m_height: 128
   m_width: 216
-  m_x: 420
+  m_x: 528
   m_y: 480
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1

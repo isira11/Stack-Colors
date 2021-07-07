@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6370312492941151411}
   - component: {fileID: 6370312492941151408}
   - component: {fileID: 2247319921883417237}
+  - component: {fileID: 1418533819512502592}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -113,6 +114,36 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   GameEvent: play
+  ListenForAllGameEvents: 0
+--- !u!114 &1418533819512502592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6370312492941151375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea9f92203d31e240bc110ff7b26d05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugMode: 0
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6370312492941151411}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: OnGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  GameEvent: game_over
   ListenForAllGameEvents: 0
 --- !u!1 &6370312493038698475
 GameObject:
