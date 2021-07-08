@@ -13,13 +13,11 @@ public class LevelManager : MonoBehaviour
     public Transform start_pos;
     public GameObject start_block;
     public GameObject player;
-
     public GameObject generated_folder;
 
+    Dictionary<int, int> points = new Dictionary<int, int>();
+    bool point_timer_started;
     Bounds bounds;
-
-
-
 
     public void CreateLevel()
     {
@@ -61,9 +59,40 @@ public class LevelManager : MonoBehaviour
         PlaceObject(Instantiate(bonus_prefab));
     }
 
+
     public void OnPointScored(int point)
     {
-        print(point);
+        if (!points.ContainsKey(point))
+        {
+            points.Add(point, point);
+        }
+
+        if (!point_timer_started)
+        {
+            point_timer_started = true;
+            StartCoroutine(CR_PointTimeout());
+        }
+
+
+    }
+
+    IEnumerator CR_PointTimeout()
+    {
+        while (true)
+        {
+            int count = points.Count;
+            yield return new WaitForSeconds(2.5f);
+
+            if (points.Count == count)
+            {
+
+                foreach (var item in points)
+                {
+
+                }
+                break;
+            }
+        }
     }
 
     public void PlaceObject(GameObject obj)

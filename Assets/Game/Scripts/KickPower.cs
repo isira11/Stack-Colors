@@ -24,10 +24,8 @@ public class KickPower : MonoBehaviour
             }
             t = 0;
         }
-
         game_variables.kick_force = value;
         slider.value = Mathf.Lerp(slider.value, value,Time.deltaTime*5);
-
     }
 
 

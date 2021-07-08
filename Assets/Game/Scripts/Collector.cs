@@ -11,6 +11,7 @@ public class Collector : MonoBehaviour
     public Transform folk;
     public LinkedList<Slab> slabs = new LinkedList<Slab>();
     public Queue<Slab> buffer = new Queue<Slab>();
+
     public bool lifting;
 
     private void Start()
@@ -118,8 +119,8 @@ public class Collector : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.2f, 0.01f));
-        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.1f, 0.01f));
+        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.25f, 0.02f));
+        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.05f, 0.01f));
 
         sequence.OnComplete(() =>
                 {
@@ -130,8 +131,6 @@ public class Collector : MonoBehaviour
                     {
                         Slab _ = buffer.Dequeue();
                         OnAddSlab(_);
-
-                   
                     }
 
                 });
