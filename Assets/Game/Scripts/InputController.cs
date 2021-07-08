@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
+    public game_variables_so game_variables_so;
     public Camera cam;
     public float x_boundry_min = -7;
     public float x_boundry_max = 7;
@@ -17,11 +18,13 @@ public class InputController : MonoBehaviour
     Vector2 mouse_pos_0;
 
     Bounds bounds;
+    bool force_move;
 
     bool play;
 
     private void Start()
     {
+        game_variables_so.kick_force = 0.0f;
         next_pos = transform.position;
         Application.targetFrameRate = 60;
     }
@@ -32,7 +35,7 @@ public class InputController : MonoBehaviour
         {
             return;
         }
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && !force_move)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -82,8 +85,14 @@ public class InputController : MonoBehaviour
 
         }
 
+        if (force_move)
+        {
+            next_pos = Vector3.zero;
+            forward_speed = 5.0f + 20 * game_variables_so.kick_force;
+        }
+
         float x_lerp = Mathf.Lerp(transform.localPosition.x, next_pos.x, Time.deltaTime * smooth);
-        float z_lerp = transform.parent.position.z + Time.deltaTime * forward_speed;
+        float z_lerp = transform.parent.position.z + Time.deltaTime * forward_speed  ;
         transform.parent.position = new Vector3(0, transform.parent.position.y, z_lerp);
         transform.localPosition = new Vector3(x_lerp, 0, 0);
 
@@ -110,6 +119,24 @@ public class InputController : MonoBehaviour
 
     }
 
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "finish_line_0")
+        {
+            forward_speed = 1;
+            force_move = true;
+        }
+
+        if (other.tag == "finish_line_1")
+        {
+            play = false;
+
+       
+        }
+    }
+
+
     public void Play()
     {
         play = true;
@@ -119,6 +146,7 @@ public class InputController : MonoBehaviour
     {
         play = false;
     }
+
 
 
 }

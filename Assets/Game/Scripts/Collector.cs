@@ -5,10 +5,13 @@ using DG.Tweening;
 using Doozy.Engine;
 public class Collector : MonoBehaviour
 {
+    public game_variables_so game_variables_so;
+    public InputController inputController;
     public MeshRenderer fork_model;
     public Transform folk;
     public LinkedList<Slab> slabs = new LinkedList<Slab>();
     public Queue<Slab> buffer = new Queue<Slab>();
+
     public bool lifting;
 
     private void Start()
@@ -81,6 +84,20 @@ public class Collector : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "finish_line_0")
+        {
+            GameEventMessage.SendEvent("finish_line_0");
+        }
+
+        if (other.tag == "finish_line_1")
+        {
+            GameEventMessage.SendEvent("finish_line_1");
+            KickAll();
+        }
+    }
+
     public void RemoveSlabFromBottom()
     {
         if (slabs.Count>0)
@@ -102,8 +119,8 @@ public class Collector : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
 
-        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.2f, 0.01f));
-        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.1f, 0.01f));
+        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.25f, 0.02f));
+        sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.05f, 0.01f));
 
         sequence.OnComplete(() =>
                 {
@@ -114,12 +131,24 @@ public class Collector : MonoBehaviour
                     {
                         Slab _ = buffer.Dequeue();
                         OnAddSlab(_);
-
-                   
                     }
 
                 });
 
+    }
+
+
+
+
+    public void KickAll()
+    {
+        foreach (Slab item in slabs)
+        {
+
+            item.transform.parent = null;
+            Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
+            rb.AddForce(Vector3.forward * (500+2000 * game_variables_so.kick_force));
+        }    
     }
 
 }

@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4466e92aa68f94222b0a5671b6da0355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game_variables_so: {fileID: 11400000, guid: 1bc0cb92af5d947db9c9bb60a061681b, type: 2}
   cam: {fileID: 6370312494110547286}
   x_boundry_min: -7.5
   x_boundry_max: 7.5
@@ -82,6 +83,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d02f08ce3444d2b473af35eaa8234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  game_variables_so: {fileID: 11400000, guid: 1bc0cb92af5d947db9c9bb60a061681b, type: 2}
+  inputController: {fileID: 6370312492941151411}
   fork_model: {fileID: 6370312493038698476}
   folk: {fileID: 6370312494600878638}
   lifting: 0

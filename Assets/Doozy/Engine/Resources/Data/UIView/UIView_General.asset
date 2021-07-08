@@ -20,4 +20,5 @@ MonoBehaviour:
   - coins
   - road_map
   - game_over
-  - 
+  - finish_line_0
+  - finish_line_1
