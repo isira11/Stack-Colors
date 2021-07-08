@@ -430,6 +430,9 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: road_map
+  - Category: General
+    InstantAction: 0
+    Name: game_play
   m_onEnterHideViews: []
   m_onExitShowViews: []
   m_onExitHideViews:
@@ -439,6 +442,9 @@ MonoBehaviour:
   - Category: General
     InstantAction: 0
     Name: road_map
+  - Category: General
+    InstantAction: 0
+    Name: game_play
 --- !u!114 &752442618261119487
 MonoBehaviour:
   m_ObjectHideFlags: 1

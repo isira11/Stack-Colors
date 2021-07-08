@@ -15,12 +15,28 @@ public class LevelManager : MonoBehaviour
     public GameObject player;
     public GameObject generated_folder;
 
+    public TextMeshProUGUI collect_points_txt;
+
+    public int  collected_points 
+    {
+        get { return _collected_points; }
+        set
+        {
+            _collected_points = value;
+            collect_points_txt.SetText("" + _collected_points);
+        }
+    }
+
+    int _collected_points = 0;
+
     Dictionary<int, int> points = new Dictionary<int, int>();
     bool point_timer_started;
     Bounds bounds;
 
     public void CreateLevel()
     {
+        collected_points = 0;
+
         if (player)
         {
             Destroy(player);
@@ -32,6 +48,7 @@ public class LevelManager : MonoBehaviour
         }
 
         player = Instantiate(player_prefab, start_pos.position, Quaternion.identity);
+        player.transform.Find("Player").GetComponent<Collector>().OnSlabAdded = ()=> { collected_points++; };
         player.transform.parent = transform;
 
         generated_folder = new GameObject("generated_folder");

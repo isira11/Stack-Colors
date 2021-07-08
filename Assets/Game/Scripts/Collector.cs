@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Doozy.Engine;
+using System;
+
 public class Collector : MonoBehaviour
 {
     public game_variables_so game_variables_so;
@@ -12,16 +14,13 @@ public class Collector : MonoBehaviour
     public LinkedList<Slab> slabs = new LinkedList<Slab>();
     public Queue<Slab> buffer = new Queue<Slab>();
 
+    public Action OnSlabAdded = () => {};
+
     public bool lifting;
 
     private void Start()
     {
         DOTween.Init();
-    }
-
-    private void Update()
-    {
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -35,7 +34,7 @@ public class Collector : MonoBehaviour
 
             if (slab.GetColor() == fork_model.material.color)
             {
-                //print("SAME");
+     
             }
             else
             {
@@ -121,7 +120,7 @@ public class Collector : MonoBehaviour
 
         sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.25f, 0.02f));
         sequence.Append(folk.transform.DOLocalMoveY(folk.transform.localPosition.y + slab.transform.localScale.y + 0.05f, 0.01f));
-
+        OnSlabAdded.Invoke();
         sequence.OnComplete(() =>
                 {
                     lifting = false;
