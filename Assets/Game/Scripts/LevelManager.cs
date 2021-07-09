@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Doozy.Engine;
+
 public class LevelManager : MonoBehaviour
 {
     public GameObject player_prefab;
@@ -16,25 +18,40 @@ public class LevelManager : MonoBehaviour
     public GameObject generated_folder;
 
     public TextMeshProUGUI collect_points_txt;
+    public TextMeshProUGUI point_multiplier_txt;
+    public TextMeshProUGUI points_received_txt;
 
-    public int  collected_points 
+
+
+    public float  collected_points 
     {
         get { return _collected_points; }
         set
         {
-            _collected_points = value;
+            if (value<0)
+            {
+                _collected_points = 0;
+            }
+            else
+            {
+                _collected_points = value;
+            }
+
+
             collect_points_txt.SetText("" + _collected_points);
         }
     }
 
-    int _collected_points = 0;
+    float _collected_points = 0;
 
-    Dictionary<int, int> points = new Dictionary<int, int>();
+    Dictionary<float, float> points = new Dictionary<float, float>();
     bool point_timer_started;
     Bounds bounds;
+    float highest_multipier = 0;
 
     public void CreateLevel()
     {
+        highest_multipier = 0;
         collected_points = 0;
 
         if (player)
@@ -49,6 +66,7 @@ public class LevelManager : MonoBehaviour
 
         player = Instantiate(player_prefab, start_pos.position, Quaternion.identity);
         player.transform.Find("Player").GetComponent<Collector>().OnSlabAdded = ()=> { collected_points++; };
+        player.transform.Find("Player").GetComponent<Collector>().OnSlabRemoved = () => { collected_points--; };
         player.transform.parent = transform;
 
         generated_folder = new GameObject("generated_folder");
@@ -61,15 +79,18 @@ public class LevelManager : MonoBehaviour
 
         PlaceObject(Instantiate(finish_prefab));
 
+        float i2 = 1.0f;
         for (int i = 0; i < 100; i++)
         {
             GameObject _ = Instantiate(point_prefab);
-            _.transform.Find("ground").GetComponent<PointSlab>().point = i + 1;
-            _.transform.Find("ground").GetComponent<PointSlab>().OnPoint = (int i)=>{ OnPointScored(i); };
+            _.transform.Find("ground").GetComponent<PointSlab>().point = i2;
+            _.transform.Find("ground").GetComponent<PointSlab>().OnPoint = (float point)=>{ OnPointScored(point); };
 
             _.transform.Find("ground").GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            _.transform.Find("text").GetComponent<TextMeshPro>().SetText("" + (i + 1));
+            _.transform.Find("text").GetComponent<TextMeshPro>().SetText("" + i2);
 
+            i2 += 0.2f;
+            i2 = Mathf.Round(i2 * 10f) / 10f;
             PlaceObject(_);
         }
 
@@ -77,10 +98,15 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void OnPointScored(int point)
+    public void OnPointScored(float point)
     {
         if (!points.ContainsKey(point))
         {
+            if (point > highest_multipier)
+            {
+                highest_multipier = point;
+                point_multiplier_txt.SetText("x"+highest_multipier);
+            }
             points.Add(point, point);
         }
 
@@ -102,11 +128,8 @@ public class LevelManager : MonoBehaviour
 
             if (points.Count == count)
             {
-
-                foreach (var item in points)
-                {
-
-                }
+                points_received_txt.SetText(""+collected_points* highest_multipier);
+                GameEventMessage.SendEvent("OnPointTimeOut");
                 break;
             }
         }

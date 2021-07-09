@@ -15,6 +15,7 @@ public class Collector : MonoBehaviour
     public Queue<Slab> buffer = new Queue<Slab>();
 
     public Action OnSlabAdded = () => {};
+    public Action OnSlabRemoved = () => { };
 
     public bool lifting;
 
@@ -103,6 +104,7 @@ public class Collector : MonoBehaviour
         {
             slabs.Last.Value.StartDestroy2();
             slabs.RemoveLast();
+            OnSlabRemoved.Invoke();
 
         }
         else

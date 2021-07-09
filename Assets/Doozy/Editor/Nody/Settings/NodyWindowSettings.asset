@@ -43,17 +43,17 @@ MonoBehaviour:
   DeletedNodes:
   - {fileID: 4347111224271648266, guid: da04007ffeaee4585a27b6a5e5747024, type: 2}
   SelectedNodes:
-  - {fileID: 473179547396426124, guid: da04007ffeaee4585a27b6a5e5747024, type: 2}
+  - {fileID: -299794739065637867, guid: da04007ffeaee4585a27b6a5e5747024, type: 2}
   GraphTabs:
   - IsRootTab: 1
     Graph: {fileID: 11400000, guid: da04007ffeaee4585a27b6a5e5747024, type: 2}
     SubGraphNode: {fileID: 0}
     Zoom: 0.6
-    PanOffset: {x: 216.59193, y: 80.88957}
+    PanOffset: {x: 126.778694, y: 80.657745}
     SelectedNodes: []
     DeletedNodes: []
   CurrentView: 1
-  CurrentPanOffset: {x: 216.59193, y: 80.88957}
+  CurrentPanOffset: {x: -11.802842, y: -29.625301}
   DefaultPanOffset: {x: 0, y: 0}
   IsDirty: 0
   SaveCurrentGraphWithControlS: 1
