@@ -21,4 +21,10 @@ MonoBehaviour:
   - road_map
   - game_over
   - finish_line_0
-  - finish_line_1
+  - point_multiplier
+  - game_play
+  - points_collected
+  - x3ad
+  - total_points
+  - menu_btn1
+  - white_background

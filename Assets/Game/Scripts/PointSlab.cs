@@ -7,8 +7,8 @@ public class PointSlab : MonoBehaviour
 {
     MeshRenderer mr;
 
-    public int point;
-    public Action<int> OnPoint;
+    public float point;
+    public Action<float> OnPoint;
 
  
     private void Start()
