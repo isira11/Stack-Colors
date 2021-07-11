@@ -6,6 +6,7 @@ using Doozy.Engine;
 
 public class LevelManager : MonoBehaviour
 {
+    public game_variables_so game_Variables_So;
     public GameObject player_prefab;
     public GameObject block_prefab;
     public GameObject finish_prefab;
@@ -23,7 +24,6 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI points_received_txt;
 
 
-
     public float  collected_points 
     {
         get { return _collected_points; }
@@ -38,7 +38,6 @@ public class LevelManager : MonoBehaviour
                 _collected_points = value;
             }
 
-
             collect_points_txt.SetText("" + _collected_points);
         }
     }
@@ -52,6 +51,8 @@ public class LevelManager : MonoBehaviour
 
     public void CreateLevel()
     {
+
+        point_timer_started = false;
         highest_multipier = 0;
         collected_points = 0;
 
@@ -73,6 +74,9 @@ public class LevelManager : MonoBehaviour
         generated_folder = new GameObject("generated_folder");
         generated_folder.transform.parent = transform;
 
+        game_Variables_So.generated_level_folder = generated_folder.transform;
+
+
         for (int i = 0; i <= 2; i++)
         {
             PlaceObject(Instantiate(block_prefab));
@@ -92,6 +96,11 @@ public class LevelManager : MonoBehaviour
 
             i2 += 0.2f;
             i2 = Mathf.Round(i2 * 10f) / 10f;
+
+            if (i == 0)
+            {
+                point_multiplier_cam_target.position = _.transform.position;
+            }
             PlaceObject(_);
         }
 
@@ -101,6 +110,13 @@ public class LevelManager : MonoBehaviour
 
     public void OnPointScored(float point,Vector3 pos)
     {
+        if (!point_timer_started)
+        {
+            points.Clear();
+            StartCoroutine(CR_PointTimeout());
+        }
+
+
         if (!points.ContainsKey(point))
         {
             if (point > highest_multipier)
@@ -111,18 +127,24 @@ public class LevelManager : MonoBehaviour
             points.Add(point, point);
             point_multiplier_cam_target.position = pos;
         }
-
-        if (!point_timer_started)
-        {
-            point_timer_started = true;
-            StartCoroutine(CR_PointTimeout());
-        }
-
-
     }
 
     IEnumerator CR_PointTimeout()
     {
+        point_timer_started = true;
+        player.SetActive(false);
+
+        GameObject _cam = new GameObject("cam");
+        _cam.transform.position = point_multiplier_cam_target.position;
+        _cam.transform.parent = generated_folder.transform;
+        _cam.AddComponent<Camera>();
+        CameraController2 controller =_cam.AddComponent<CameraController2>();
+        controller.target = point_multiplier_cam_target;
+        controller.smooth = 3;
+        controller.smooth_rot = 2;
+        controller.offset = new Vector3(-11.2f, -18.1f, 22);
+
+
         while (true)
         {
             int count = points.Count;
@@ -135,6 +157,7 @@ public class LevelManager : MonoBehaviour
                 break;
             }
         }
+
     }
 
     public void PlaceObject(GameObject obj)

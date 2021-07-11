@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class InputController : MonoBehaviour
     public float forward_speed = 2;
     public float smooth = 5;
     public Transform fork;
+    public Action OnPassLine1;
 
     Vector3 intersect_0;
     Vector3 pos_0;
@@ -131,8 +133,6 @@ public class InputController : MonoBehaviour
         if (other.tag == "finish_line_1")
         {
             play = false;
-
-       
         }
     }
 
