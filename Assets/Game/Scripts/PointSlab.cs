@@ -8,7 +8,7 @@ public class PointSlab : MonoBehaviour
     MeshRenderer mr;
 
     public float point;
-    public Action<float> OnPoint;
+    public Action<float,Vector3> OnPoint;
 
  
     private void Start()
@@ -21,7 +21,7 @@ public class PointSlab : MonoBehaviour
         {
             mr.material.color = new Color32(0, 0, 0, 0);
 
-            OnPoint.Invoke(point);
+            OnPoint.Invoke(point,transform.position);
         }
 
     }

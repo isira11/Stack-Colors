@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
     public GameObject start_block;
     public GameObject player;
     public GameObject generated_folder;
+    public Transform point_multiplier_cam_target;
 
     public TextMeshProUGUI collect_points_txt;
     public TextMeshProUGUI point_multiplier_txt;
@@ -84,7 +85,7 @@ public class LevelManager : MonoBehaviour
         {
             GameObject _ = Instantiate(point_prefab);
             _.transform.Find("ground").GetComponent<PointSlab>().point = i2;
-            _.transform.Find("ground").GetComponent<PointSlab>().OnPoint = (float point)=>{ OnPointScored(point); };
+            _.transform.Find("ground").GetComponent<PointSlab>().OnPoint = (float point , Vector3 pos)=>{OnPointScored(point, pos);};
 
             _.transform.Find("ground").GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
             _.transform.Find("text").GetComponent<TextMeshPro>().SetText("" + i2);
@@ -98,7 +99,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void OnPointScored(float point)
+    public void OnPointScored(float point,Vector3 pos)
     {
         if (!points.ContainsKey(point))
         {
@@ -108,6 +109,7 @@ public class LevelManager : MonoBehaviour
                 point_multiplier_txt.SetText("x"+highest_multipier);
             }
             points.Add(point, point);
+            point_multiplier_cam_target.position = pos;
         }
 
         if (!point_timer_started)
