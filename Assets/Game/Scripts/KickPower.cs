@@ -9,31 +9,41 @@ public class KickPower : MonoBehaviour
 
     [SerializeField] public Slider slider;
 
-    public float value = 0;
 
-    float t;
-   
-    private void Update()
+    public float force = 3;
+    public bool add;
+    Rigidbody rb;
+
+
+
+
+    private void Start()
     {
-        t += Time.deltaTime;
-        if (t>1.1f)
-        {
-            if (value > 0)
-            {
-                value -= 0.2f;
-            }
-            t = 0;
-        }
-        game_variables.kick_force = value;
-        slider.value = Mathf.Lerp(slider.value, value,Time.deltaTime*5);
+        rb = GetComponent<Rigidbody>();
+        slider.minValue = 0;
+        slider.maxValue = 50;
     }
 
-
-    public  void OnTap()
+    private void Update()
     {
-        if (value < 1)
+        slider.value = transform.position.y;
+        game_variables.kick_force = Mathf.Clamp(transform.position.y/50,0, 1);
+    }
+
+    private void FixedUpdate()
+    {
+        if (add)
         {
-            value += 0.1f;
+            rb.velocity = rb.velocity / 2;
+            rb.AddForce(Vector3.up * force, ForceMode.Impulse);
+            add = false;
         }
+
+        transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y,0,50), transform.position.z);
+    }
+
+    public void Tap()
+    {
+        add = true;
     }
 }
