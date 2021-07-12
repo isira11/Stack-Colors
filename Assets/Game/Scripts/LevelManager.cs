@@ -51,7 +51,7 @@ public class LevelManager : MonoBehaviour
 
     public void CreateLevel()
     {
-
+        game_Variables_So.kick_force = 0;
         point_timer_started = false;
         highest_multipier = 0;
         collected_points = 0;
