@@ -49,16 +49,16 @@ MonoBehaviour:
     Graph: {fileID: 11400000, guid: da04007ffeaee4585a27b6a5e5747024, type: 2}
     SubGraphNode: {fileID: 0}
     Zoom: 0.6
-    PanOffset: {x: 126.778694, y: 80.657745}
+    PanOffset: {x: -11.802842, y: -29.625301}
     SelectedNodes: []
     DeletedNodes: []
   CurrentView: 1
-  CurrentPanOffset: {x: -11.802842, y: -29.625301}
+  CurrentPanOffset: {x: 13.849936, y: -319.74838}
   DefaultPanOffset: {x: 0, y: 0}
   IsDirty: 0
   SaveCurrentGraphWithControlS: 1
   CurrentDotAnimationSpeed: 0.6
-  CurrentZoom: 0.6
+  CurrentZoom: 0.7
   DefaultDotAnimationSpeed: 0.6
   DefaultZoom: 1
   ShowNodeNotes: 1
