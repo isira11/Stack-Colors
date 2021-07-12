@@ -6,4 +6,5 @@ using UnityEngine;
 public class game_variables_so : ScriptableObject
 {
     public float kick_force;
+    public Transform generated_level_folder;
 }
