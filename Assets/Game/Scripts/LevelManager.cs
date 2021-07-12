@@ -6,12 +6,14 @@ using Doozy.Engine;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool reset;
     public game_variables_so game_Variables_So;
     public GameObject player_prefab;
     public GameObject block_prefab;
     public GameObject finish_prefab;
     public GameObject point_prefab;
     public GameObject bonus_prefab;
+    public GameObject[] block_prefabs;
 
     public Transform start_pos;
     public GameObject start_block;
@@ -22,6 +24,8 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI collect_points_txt;
     public TextMeshProUGUI point_multiplier_txt;
     public TextMeshProUGUI points_received_txt;
+
+
 
 
     public float  collected_points 
@@ -48,6 +52,15 @@ public class LevelManager : MonoBehaviour
     bool point_timer_started;
     Bounds bounds;
     float highest_multipier = 0;
+
+    private void Update()
+    {
+        if (reset)
+        {
+            reset = false;
+            OnMenu();
+        }
+    }
 
     public void CreateLevel()
     {
@@ -77,9 +90,9 @@ public class LevelManager : MonoBehaviour
         game_Variables_So.generated_level_folder = generated_folder.transform;
 
 
-        for (int i = 0; i <= 2; i++)
+        for (int i = 0; i <= 10; i++)
         {
-            PlaceObject(Instantiate(block_prefab));
+            PlaceObject(Instantiate(block_prefabs[Random.Range(0, block_prefabs.Length)]));
         }
 
         PlaceObject(Instantiate(finish_prefab));

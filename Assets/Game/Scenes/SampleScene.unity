@@ -8926,7 +8926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d80813c1de6490ca12d86a0bf0aeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 3
+  force: 9
   add: 0
 --- !u!54 &1203886616
 Rigidbody:
@@ -16955,12 +16955,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376656aa68e92457d960f4ec5e1242af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reset: 0
   game_Variables_So: {fileID: 11400000, guid: 1bc0cb92af5d947db9c9bb60a061681b, type: 2}
   player_prefab: {fileID: 6370312494683199767, guid: c85d3ee1c91814a40aef6a2825d5def1, type: 3}
   block_prefab: {fileID: 8372396054852505877, guid: 4bba9788e84714f2dbe47349b4405856, type: 3}
   finish_prefab: {fileID: 8732717592774065667, guid: 3d0ad72dd6e004d6aa769b3a0e032b71, type: 3}
   point_prefab: {fileID: 4109280545104761953, guid: 85bad9b32f2fd458390b56092e9f98b5, type: 3}
   bonus_prefab: {fileID: 8873698859545875283, guid: 60fce14d5a6ff4f52912693f674ec5f0, type: 3}
+  block_prefabs:
+  - {fileID: 8372396054852505877, guid: d627f601c32fa4e56ab4db2fcaa63848, type: 3}
+  - {fileID: 8372396054852505877, guid: 4bba9788e84714f2dbe47349b4405856, type: 3}
   start_pos: {fileID: 1931580570}
   start_block: {fileID: 1500798256916634790}
   player: {fileID: 0}
