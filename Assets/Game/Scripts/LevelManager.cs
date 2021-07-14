@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Doozy.Engine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool reset;
     public game_variables_so game_Variables_So;
     public GameObject player_prefab;
     public GameObject block_prefab;
     public GameObject finish_prefab;
     public GameObject point_prefab;
     public GameObject bonus_prefab;
+    public GameObject[] block_prefabs;
 
     public Transform start_pos;
     public GameObject start_block;
@@ -23,6 +26,10 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI point_multiplier_txt;
     public TextMeshProUGUI points_received_txt;
 
+    public TextMeshProUGUI[] road_map_p;
+
+
+    public int level;
 
     public float  collected_points 
     {
@@ -49,8 +56,25 @@ public class LevelManager : MonoBehaviour
     Bounds bounds;
     float highest_multipier = 0;
 
+    private void Start()
+    {
+
+    }
+
+    private void Update()
+    {
+        if (reset)
+        {
+            reset = false;
+            UpdateRoadMap(level);
+            OnMenu();
+        }
+    }
+
     public void CreateLevel()
     {
+        Random.InitState(level);
+        UpdateRoadMap(level);
         game_Variables_So.kick_force = 0;
         point_timer_started = false;
         highest_multipier = 0;
@@ -79,7 +103,7 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i <= 2; i++)
         {
-            PlaceObject(Instantiate(block_prefab));
+            PlaceObject(Instantiate(block_prefabs[Random.Range(0, block_prefabs.Length)]));
         }
 
         PlaceObject(Instantiate(finish_prefab));
@@ -152,8 +176,11 @@ public class LevelManager : MonoBehaviour
 
             if (points.Count == count)
             {
-                points_received_txt.SetText(""+collected_points* highest_multipier);
+                points_received_txt.SetText("" + collected_points * highest_multipier);
                 GameEventMessage.SendEvent("OnPointTimeOut");
+                level++;
+                yield return new WaitForSeconds(1.0f);
+                UpdateRoadMap(level);
                 break;
             }
         }
@@ -166,6 +193,22 @@ public class LevelManager : MonoBehaviour
         obj.transform.position = Vector3.forward * bounds.max.z;
         obj.transform.position += Vector3.forward * obj.transform.Find("ground").GetComponent<MeshRenderer>().bounds.size.z / 2;
         bounds = obj.transform.Find("ground").GetComponent<MeshRenderer>().bounds;
+    }
+
+    public void UpdateRoadMap(int current_level)
+    {
+        int multiple = Mathf.CeilToInt(current_level / 5.0f);
+        int m = multiple * 5;
+        print("min "+(m-4)+" max "+m);
+
+        for (int i = 0; i <= 4; i++)
+        {
+            road_map_p[i].SetText("" + (i+(m-4)));
+            road_map_p[i].transform.parent.GetComponent<Image>().color = Color.white;
+        }
+
+        road_map_p[current_level-(m-4)].transform.parent.GetComponent<Image>().color = Color.green;
+
     }
 
     public void OnMenu()

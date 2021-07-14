@@ -21,13 +21,13 @@ public class KickPower : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         slider.minValue = 0;
-        slider.maxValue = 50;
+        slider.maxValue = 20;
     }
 
     private void Update()
     {
         slider.value = transform.position.y;
-        game_variables.kick_force = Mathf.Clamp(transform.position.y/50,0, 1);
+        game_variables.kick_force = Mathf.Clamp(transform.position.y/20,0, 1);
     }
 
     private void FixedUpdate()
@@ -39,7 +39,7 @@ public class KickPower : MonoBehaviour
             add = false;
         }
 
-        transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y,0,50), transform.position.z);
+        transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y,0,20), transform.position.z);
     }
 
     public void Tap()
