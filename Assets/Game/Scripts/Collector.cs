@@ -163,7 +163,7 @@ public class Collector : MonoBehaviour
 
             item.transform.parent = null;
             Rigidbody rb = item.gameObject.AddComponent<Rigidbody>();
-            rb.AddForce(Vector3.forward * (500+2000 * game_variables_so.kick_force));
+            rb.AddForce(Vector3.forward * (2000 * game_variables_so.kick_force + PlayerPrefs.GetInt(UpgradeType.KICK.ToString())*150));
             item.transform.parent = game_variables_so.generated_level_folder;
         }    
     }

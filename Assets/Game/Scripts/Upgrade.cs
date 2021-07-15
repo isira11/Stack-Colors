@@ -75,8 +75,8 @@ public class Upgrade : MonoBehaviour
 
                 break;
             case UpgradeType.BONUS:
-                resource_txt.SetText("x" + (1 + level * 0.2f));
-                upgrade_txt.SetText("+" + 0.2);
+                resource_txt.SetText("x"+level) ;
+                upgrade_txt.SetText("+" + 1);
                 level_txt.SetText("" + level);
                 price_txt.SetText(price + "$");
 

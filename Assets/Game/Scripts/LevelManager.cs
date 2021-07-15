@@ -176,7 +176,7 @@ public class LevelManager : MonoBehaviour
 
             if (points.Count == count)
             {
-                points_received_txt.SetText("" + collected_points * highest_multipier);
+                points_received_txt.SetText("" + (collected_points * highest_multipier));
                 GameEventMessage.SendEvent("OnPointTimeOut");
                 level++;
                 yield return new WaitForSeconds(1.0f);
