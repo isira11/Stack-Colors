@@ -48,4 +48,12 @@ public class CoinCollector : MonoBehaviour
         });
 
     }
+
+    public void AddCoin(int amount)
+    {
+        int coins = PlayerPrefs.GetInt("COINS", 0);
+        coins+= amount;
+        PlayerPrefs.SetInt("COINS", coins);
+        coins_txt.SetText(coins + "");
+    }
 }
