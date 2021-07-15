@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum UpgradeType
+{
+    KICK,
+    BONUS,
+    STACK
+}
+
 public class Upgrade : MonoBehaviour
 {
-    public Type upgrade_type;
+    public UpgradeType upgrade_type;
     public int price_divider;
     public int price_multipler;
 
@@ -16,13 +23,6 @@ public class Upgrade : MonoBehaviour
 
 
     string upgrade_name;
-
-    public enum Type
-    {
-        KICK,
-        BONUS,
-        STACK
-    }
 
     private void Start()
     {
@@ -66,7 +66,7 @@ public class Upgrade : MonoBehaviour
     {
         switch (upgrade_type)
         {
-            case Type.KICK:
+            case UpgradeType.KICK:
 
                 resource_txt.SetText("x" + level * 5);
                 upgrade_txt.SetText("+" + 5);
@@ -74,14 +74,14 @@ public class Upgrade : MonoBehaviour
                 price_txt.SetText(price + "$");
 
                 break;
-            case Type.BONUS:
+            case UpgradeType.BONUS:
                 resource_txt.SetText("x" + (1 + level * 0.2f));
                 upgrade_txt.SetText("+" + 0.2);
                 level_txt.SetText("" + level);
                 price_txt.SetText(price + "$");
 
                 break;
-            case Type.STACK:
+            case UpgradeType.STACK:
                 resource_txt.SetText(""+level);
                 upgrade_txt.SetText("+" + 1);
                 level_txt.SetText("" + level);

@@ -7,6 +7,7 @@ using System;
 
 public class Collector : MonoBehaviour
 {
+    public GameObject inital_stack_prefab;
     public game_variables_so game_variables_so;
     public InputController inputController;
     public MeshRenderer fork_model;
@@ -44,20 +45,7 @@ public class Collector : MonoBehaviour
                 return;
             }
 
-            slab.inBag = true;
-            collision.transform.parent = folk.parent;
-            collision.transform.rotation = folk.parent.rotation;
-            collision.transform.DOLocalMove(Vector3.zero + folk.parent.up * (collision.transform.localScale.y / 2 + fork_model.transform.localScale.y/2), 0.1f)
-                .SetEase(Ease.InOutCirc)
-                .OnComplete(() =>
-                {
-                    buffer.Enqueue(slab);
-
-                    if (!lifting)
-                    {
-                        OnAddSlab(buffer.Dequeue());
-                    }
-                });
+            AddSlab(slab);
         }
 
         if(collision.transform.tag == "enemy")
@@ -82,6 +70,24 @@ public class Collector : MonoBehaviour
             Color wall_color = collision.transform.GetComponent<MeshRenderer>().material.color;
             fork_model.material.color = new Color(wall_color.r, wall_color.g, wall_color.b, 1.0f);
         }
+    }
+
+    private void AddSlab(Slab slab)
+    {
+        slab.inBag = true;
+        slab.transform.parent = folk.parent;
+        slab.transform.rotation = folk.parent.rotation;
+        slab.transform.DOLocalMove(Vector3.zero + folk.parent.up * (slab.transform.localScale.y / 2 + fork_model.transform.localScale.y / 2), 0.1f)
+            .SetEase(Ease.InOutCirc)
+            .OnComplete(() =>
+            {
+                buffer.Enqueue(slab);
+
+                if (!lifting)
+                {
+                    OnAddSlab(buffer.Dequeue());
+                }
+            });
     }
 
     private void OnTriggerExit(Collider other)
@@ -138,8 +144,17 @@ public class Collector : MonoBehaviour
 
     }
 
+    public void Play()
+    {
+        int heads_up_stacks = PlayerPrefs.GetInt(UpgradeType.STACK.ToString(), 1);
 
-
+        for (int i = 0; i < heads_up_stacks; i++)
+        {
+            GameObject slab = Instantiate(inital_stack_prefab);
+            slab.transform.position = folk.position;
+            AddSlab(slab.GetComponent<Slab>());
+        }
+    }
 
     public void KickAll()
     {
