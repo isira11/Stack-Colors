@@ -102,6 +102,7 @@ public class Collector : MonoBehaviour
             GameEventMessage.SendEvent("finish_line_1");
             KickAll();
         }
+
     }
 
     public void RemoveSlabFromBottom()

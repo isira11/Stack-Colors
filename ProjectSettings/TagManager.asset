@@ -9,6 +9,7 @@ TagManager:
   - finish_line_0
   - finish_line_1
   - point
+  - coin
   layers:
   - Default
   - TransparentFX

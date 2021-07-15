@@ -199,7 +199,6 @@ public class LevelManager : MonoBehaviour
     {
         int multiple = Mathf.CeilToInt(current_level / 5.0f);
         int m = multiple * 5;
-        print("min "+(m-4)+" max "+m);
 
         for (int i = 0; i <= 4; i++)
         {
