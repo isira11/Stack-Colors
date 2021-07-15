@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public bool reset;
     public game_variables_so game_Variables_So;
     public GameObject player_prefab;
     public GameObject block_prefab;
@@ -27,9 +26,6 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI points_received_txt;
 
     public TextMeshProUGUI[] road_map_p;
-
-
-    public int level;
 
     public float  collected_points 
     {
@@ -61,18 +57,9 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        if (reset)
-        {
-            reset = false;
-            UpdateRoadMap(level);
-            OnMenu();
-        }
-    }
-
     public void CreateLevel()
     {
+        int level = PlayerPrefs.GetInt("LEVEL",1);
         Random.InitState(level);
         UpdateRoadMap(level);
         game_Variables_So.kick_force = 0;
@@ -176,10 +163,15 @@ public class LevelManager : MonoBehaviour
 
             if (points.Count == count)
             {
-                points_received_txt.SetText("" + collected_points * highest_multipier);
+                float coins_collected = collected_points * highest_multipier;
+                points_received_txt.SetText("" + coins_collected);
                 GameEventMessage.SendEvent("OnPointTimeOut");
+                int level = PlayerPrefs.GetInt("LEVEL",1);
                 level++;
+                PlayerPrefs.SetInt("LEVEL", level);
+
                 yield return new WaitForSeconds(1.0f);
+                CoinCollector.instance.AddCoin((int)coins_collected);
                 UpdateRoadMap(level);
                 break;
             }
@@ -199,7 +191,6 @@ public class LevelManager : MonoBehaviour
     {
         int multiple = Mathf.CeilToInt(current_level / 5.0f);
         int m = multiple * 5;
-        print("min "+(m-4)+" max "+m);
 
         for (int i = 0; i <= 4; i++)
         {

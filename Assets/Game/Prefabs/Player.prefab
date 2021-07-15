@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1418533819512502592}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d02f08ce3444d2b473af35eaa8234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inital_stack_prefab: {fileID: 3338122141530711349, guid: d9c3a2804acf4451798cb9b2a3990b91, type: 3}
   game_variables_so: {fileID: 11400000, guid: 1bc0cb92af5d947db9c9bb60a061681b, type: 2}
   inputController: {fileID: 6370312492941151411}
   fork_model: {fileID: 6370312493038698476}
@@ -106,6 +107,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6370312492941151411}
         m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6370312492941151408}
+        m_TargetAssemblyTypeName: Collector, Assembly-CSharp
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:
